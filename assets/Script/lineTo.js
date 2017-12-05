@@ -10,7 +10,27 @@ cc.Class({
             default:null,
             type:cc.Node
         },
-        lineWidth: 10
+        reset:{
+            default:null,
+            type:cc.Button
+        },
+        redColor:{
+            default:null,
+            type:cc.Button
+        },
+        BlueColor:{
+            default:null,
+            type:cc.Button
+        },
+        lineWidthX:{
+            default:null,
+            type:cc.Button
+        },
+        lineWidth3X:{
+            default:null,
+            type:cc.Button
+        },
+        lineWidth: 5
     },
 
     // use this for initialization
@@ -21,11 +41,32 @@ cc.Class({
         this.picture.on(cc.Node.EventType.TOUCH_START,this.plantingStart,this);
         this.picture.on(cc.Node.EventType.TOUCH_MOVE,this.plantingMove,this);
         this.picture.on(cc.Node.EventType.TOUCH_MOVE,this.plantingEnd,this);
+        //重置所有填充颜色
+        this.reset.node.on('click',function(){
+            this.graphics.clear();
+        },this);
+        //设置画笔颜色-red
+        this.redColor.node.on('click',function(){
+            this.graphics.strokeColor = cc.Color.RED;
+        },this);
+        //设置画笔颜色-Blue
+        this.BlueColor.node.on('click',function(){
+            this.graphics.strokeColor = cc.Color.BLUE;
+        },this);
+        //设置画笔宽度-10
+        this.lineWidthX.node.on('click',function(){
+            this.graphics.lineWidth = 10;
+        },this);
+        //设置画笔宽度-30
+        this.lineWidth3X.node.on('click',function(){
+            this.graphics.lineWidth = 30;
+        },this);
+        //默认起点
         this.graphicsMoveTo = cc.v2(0, 0);
         // this.graphics = this.getComponent(cc.Graphics);
         this.strokeColor = new cc.Color(248, 93, 9,255);
         this.graphics.strokeColor = this.strokeColor;
-        this.graphics.lineWidth = 20;
+        this.graphics.lineWidth = 5;
         // g.fillColor = cc.hexToColor('#f85d09');
         this.graphics.fillColor = this.strokeColor;
         //设置线条的结束端点样式
@@ -60,6 +101,9 @@ cc.Class({
         var point = event.touch.getLocation();
         this.graphicsMoveTo = this.node.convertToNodeSpaceAR(point);
     },
+
+
+
     onDisable: function () {
         if (cc.director.setClearColor) {
             cc.director.setClearColor( cc.Color.BLACK );
